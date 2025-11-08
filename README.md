@@ -92,6 +92,51 @@ This installs:
 
 ## Usage
 
+### Frontend Setup
+
+1. **Install frontend dependencies:**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. **Start the frontend development server:**
+   ```bash
+   npm start
+   ```
+   The frontend will be available at http://localhost:3000
+
+3. **For production build:**
+   ```bash
+   npm run build
+   ```
+
+### Using with Ngrok (For Testing/Sharing)
+
+**Option 1: Same Ngrok Tunnel (Recommended)**
+- Start your FastAPI backend: `uvicorn app:app --reload --host 0.0.0.0 --port 8000`
+- Start ngrok for backend: `ngrok http 8000`
+- Start your frontend build server: `cd frontend && npm run build && npx serve -s build -l 3000`
+- Start ngrok for frontend: `ngrok http 3000`
+- The frontend will automatically detect it's on ngrok and use the same origin for API calls
+
+**Option 2: Different Ngrok URLs**
+If your backend and frontend are on different ngrok URLs:
+1. Create `frontend/.env` file:
+   ```bash
+   REACT_APP_API_BASE_URL=https://your-backend-ngrok-url.ngrok.io
+   ```
+2. Rebuild the frontend:
+   ```bash
+   cd frontend
+   npm run build
+   npx serve -s build
+   ```
+
+**Note:** The frontend automatically detects:
+- `localhost` → uses `http://localhost:8000` for API
+- `ngrok` or other domains → uses same origin (window.location.origin) for API
+
 ### FastAPI REST API (Recommended for Testing)
 
 Start the FastAPI server:

@@ -1,4 +1,5 @@
 type,amount,date,details
-profit,0.0,2025-11-07,I invested five thousand rupees have a five percent
-loss,100.0,2025-11-07,Investment of 5000 with 2% loss
-profit,1.0,2025-11-07,Investment of 10 with 10% profit
+profit,0,11/7/2025,I invested five thousand rupees have a five percent
+loss,100,11/7/2025,Investment of 5000 with 2% loss
+profit,1,11/7/2025,Investment of 10 with 10% profit
+profit,300.0,2025-11-07,Investment of 3000 with 10% profit

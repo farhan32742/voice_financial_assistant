@@ -49,7 +49,24 @@ type QueryResponse = {
   json_report?: QueryReport | null;
 };
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL ?? 'http://localhost:8000';
+// Auto-detect API base URL for ngrok/localhost
+const getApiBase = (): string => {
+  // If explicitly set via environment variable, use that
+  if (process.env.REACT_APP_API_BASE_URL) {
+    return process.env.REACT_APP_API_BASE_URL;
+  }
+  
+  // If running on localhost, use localhost:8000
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:8000';
+  }
+  
+  // If running on ngrok or any other domain, use the same origin
+  // (assuming backend is proxied through the same ngrok tunnel or same domain)
+  return window.location.origin;
+};
+
+const API_BASE = getApiBase();
 
 const createId = () => `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
